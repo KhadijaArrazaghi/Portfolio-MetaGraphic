@@ -428,35 +428,7 @@ display:inline-flex;
 
 }
 .rating-card{
-position:absolute;
-height:3.75rem;
-left:0.625rem;
-top:37.5rem;
- 
-padding:8px 12px;
-gap: 0.5rem;
-
-border-radius:0.75rem;
-
-transform:scale(.8);
-
-z-index:-1;
-}
-
-.rating-icon{
-width:2.1875rem;
-height:2.1875rem;
-font-size: 0.875rem;
-}
-
-.stars{
-font-size: 0.6875rem;
-letter-spacing: 0.0625rem;
-}
-
-.rating-content h4{
-font-size: 0.625rem;
-margin-top: 0.125rem;
+    display:none;
 }
     /* Services */
     .service-grid { grid-template-columns: 1fr; }
