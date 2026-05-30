@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaGraphic</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="img/Untitled-2ic.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+
+    <div class="bg-overlay"></div>
+
+    <!-- LOGIN MODAL -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="login-box">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-icon"><i class="fas fa-user-astronaut"></i></div>
+            <h2>SIGN IN</h2>
+            <p style="font-size:12px;color:#666;margin-bottom:20px;">Sign in to order your design</p>
+            <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="emailInput" placeholder="Email Address"></div>
+            <div class="input-group"><i class="fas fa-user"></i><input type="text" id="usernameInput" placeholder="Username"></div>
+            <div class="input-group"><i class="fas fa-lock"></i><input type="password" placeholder="Password" id="passInput"><span class="eye-toggle" onclick="togglePass()"><i class="fas fa-eye" id="eyeIcon"></i></span></div>
+            <p class="forgot-link" onclick="openForgot()">Forgot Password?</p>
+            <button class="btn btn-order" style="width:100%;margin-top:8px;padding:14px;font-size:13px;" onclick="handleLogin()">ENTER</button>
+            <p style="margin-top:16px;font-size:11px;color:#555;">No account? <span style="color:var(--neon-purple);cursor:pointer;">Register</span></p>
+            
+            <!-- Saved Accounts -->
+            <div class="saved-accounts" id="savedAccountsSection" style="display:none;">
+                <div class="saved-accounts-title">— SAVED ACCOUNTS —</div>
+                <div id="savedAccountsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORGOT MODAL -->
+    <div class="modal-overlay" id="forgotModal" style="display:none;">
+        <div class="login-box">
+            <button class="modal-close" onclick="closeForgot()"><i class="fas fa-times"></i></button>
+            <div class="modal-icon"><i class="fas fa-key"></i></div>
+            <h2>RESET</h2>
+            <p style="font-size:12px;color:#666;margin-bottom:20px;">Enter your email to receive a reset link</p>
+            <div class="input-group"><i class="fas fa-envelope"></i><input type="email" placeholder="Your Email Address"></div>
+            <button class="btn btn-order" style="width:100%;margin-top:15px;padding:14px;font-size:13px;" onclick="closeForgot()">SEND LINK</button>
+            <p style="margin-top:15px;font-size:12px;color:var(--neon-purple);cursor:pointer;" onclick="closeForgot();openModal()">← Back to Sign In</p>
+        </div>
+    </div>
+
+    <!-- EDIT ACCOUNT MODAL -->
+    <div class="modal-overlay" id="editModal" style="display:none;">
+        <div class="login-box">
+            <button class="modal-close" onclick="closeEditModal()"><i class="fas fa-times"></i></button>
+            <div class="modal-icon"><i class="fas fa-edit"></i></div>
+            <h2>EDIT ACCOUNT</h2>
+            <input type="hidden" id="editIndex">
+            <div class="input-group"><i class="fas fa-user"></i><input type="text" id="editUsername" placeholder="New Username"></div>
+            <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="editEmail" placeholder="New Email"></div>
+            <button class="btn btn-order" style="width:100%;margin-top:15px;padding:14px;font-size:13px;" onclick="saveEdit()">SAVE CHANGES</button>
+        </div>
+    </div>
+
+    
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" onclick="closeMobileMenu()">Home</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#skills" onclick="closeMobileMenu()">Skills</a>
+        <a href="#portfolio" onclick="closeMobileMenu()">Portfolio</a>
+        <a href="javascript:void(0)" onclick="closeMobileMenu(); openModal()">Contact</a>
+    </div>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="logo"><img src="img/Untitled-26.png" alt="logo" onerror="this.style.display='none'; this.parentElement.textContent='PORTFOLIO'"></div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+        </ul>
+        <div class="nav-right">
+            <a href="javascript:void(0)" class="btn btn-cv" onclick="openModal()" style="margin:0; padding: 8px 15px;">Contact</a>
+            <div class="user-circle" onclick="openModal()"><i class="fas fa-user-secret"></i></div>
+            <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-wrapper">
+        <section class="hero">
+            <div class="particles" id="bubbleContainer"></div>
+            <div class="hero-content-side reveal-left">
+                <div class="hero-content">
+                    <div class="availability-badge">
+    <span class="status-dot"></span>
+    Available for New Projects
+                    </div>
+                    <h1 class="reveal reveal-delay-1">Creative <span>Designer</span></h1>
+                    <p class="reveal reveal-delay-2">Crafting powerful visual identities, stunning user experiences, and impactful designs that help brands stand out and grow.</p>
+                    <div class="hero-btns reveal reveal-delay-3">
+                        <a href="#" class="btn btn-cv">DOWNLOAD CV</a>
+                        <a href="#services" class="btn btn-order">ORDER DESIGN</a>
+                    </div>
+                    <div class="hero-stats reveal reveal-delay-4">
+                        <div class="stat-item">
+                            <h2 class="counter" data-target="50" data-started="false">0</h2>
+                            <p>Satisfied Clients</p>
+                        </div>
+                        <div class="stat-item">
+                            <h2 class="counter" data-target="6" data-started="false">0</h2>
+                            <p>Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-img-container reveal-right">
+                <div class="neon-ring"></div>
+                <div class="backlight-glow"></div>
+                <div class="hero-img"><img src="img/logo.png" alt="Profile Character"></div>
+            </div>
+            <div class="rating-card">
+
+    <div class="rating-icon">
+        <i class="fas fa-award"></i>
+    </div>
+
+    <div class="rating-content">
+        <div class="stars">★★★★★</div>
+        <h4>Premium Design Services</h4>
+    </div>
+        </section>
+
+        <div class="marquee">
+            <div class="marquee-content">
+                GRAPHIC DESIGN &bull; SOCIAL MEDIA DESIGN &bull; ADS DESIGN &bull; VISUAL IDENTITY &bull; LOGO DESIGN &bull; UI/UX DESIGN &bull; GRAPHIC DESIGN &bull; SOCIAL MEDIA DESIGN &bull; ADS DESIGN &bull; VISUAL IDENTITY &bull; LOGO DESIGN &bull; UI/UX DESIGN &bull; GRAPHIC DESIGN &bull; SOCIAL MEDIA DESIGN &bull; ADS DESIGN &bull; VISUAL IDENTITY &bull; LOGO DESIGN &bull; UI/UX DESIGN &bull; GRAPHIC DESIGN &bull; SOCIAL MEDIA DESIGN &bull; ADS DESIGN &bull; VISUAL IDENTITY &bull; LOGO DESIGN &bull; UI/UX DESIGN &bull;
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <section id="services" class="services">
+        <h2 class="reveal" style="font-family: Orbitron; font-size: 35px;">My Services</h2>
+        <div class="service-grid">
+            <div class="service-card reveal-delay-1" onclick="toggleService(this)">
+                <i class="fas fa-fingerprint"></i>
+                <h3>Visual Identity</h3>
+                <div class="service-info">
+                    <p>Professional logo design and complete brand guidelines.</p>
+                    <a href="#" class="btn btn-order" style="display:block; margin-top:15px;" onclick="requireAuth(event)">Order Now</a>
+                </div>
+            </div>
+            <div class="service-card reveal-delay-2" onclick="toggleService(this)">
+                <i class="fas fa-bullhorn"></i>
+                <h3>Social Media Ads</h3>
+                <div class="service-info">
+                    <p>Eye-catching advertising designs for all social platforms.</p>
+                    <a href="#" class="btn btn-order" style="display:block; margin-top:15px;" onclick="requireAuth(event)">Order Now</a>
+                </div>
+            </div>
+            <div class="service-card reveal-delay-3" onclick="toggleService(this)">
+                <i class="fas fa-desktop"></i>
+                <h3>UI/UX Design</h3>
+                <div class="service-info">
+                    <p>Modern user interface design for web and mobile apps.</p>
+                    <a href="#" class="btn btn-order" style="display:block; margin-top:15px;" onclick="requireAuth(event)">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="skills">
+        <h2 class="reveal" style="font-family: Orbitron; margin-bottom: 50px; text-align: center;">Technical Expertise</h2>
+        <div class="skill-bar">
+            <div class="skill-info"><span>Photoshop</span><span>90%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-width="90%"></div></div>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-info"><span>Figma</span><span>85%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-width="85%"></div></div>
+        </div>
+        <div class="skill-bar">
+            <div class="skill-info"><span>Illustrator</span><span>70%</span></div>
+            <div class="bar-bg"><div class="bar-fill" data-width="70%"></div></div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="portfolio">
+        <h2 class="reveal" style="font-family: Orbitron; font-size: 25px;">Featured Projects</h2>
+        <p class="portfolio-subtitle reveal">A collection of selected projects crafted with creativity, strategy, and attention to detail.</p>
+
+        <div class="cards-stage" id="cardsStage">
+            <div class="pcard" data-index="0">
+                <img src="img/7.png" alt="Brand Identity" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Logo Design</div>
+                    <div class="pcard-title">NeonBrand Identity</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="1">
+                <img src="img/3.png" alt="UI Design" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">UI/UX Design</div>
+                    <div class="pcard-title">Mobile App UI</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="2">
+                <img src="img/1.png" alt="Social Media" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Ads Design</div>
+                    <div class="pcard-title">Social Campaign</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="3">
+                <img src="img/4.png" alt="Poster Design" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Graphic Design</div>
+                    <div class="pcard-title">Event Poster</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="4">
+                <img src="img/5.png" alt="Visual Identity" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Branding</div>
+                    <div class="pcard-title">Full Visual Identity</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="5">
+                <img src="img/6.png" alt="Motion Design" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Motion Design</div>
+                    <div class="pcard-title">Animated Intro</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="6">
+                <img src="img/2.png" alt="Print Design" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Print Design</div>
+                    <div class="pcard-title">Packaging & Print</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            <div class="pcard" data-index="7">
+                <img src="img/8.png" alt="Brand Strategy" >
+                <div class="pcard-overlay">
+                    <div class="pcard-label">Brand Strategy</div>
+                    <div class="pcard-title">Complete Rebrand</div>
+                    <button class="pcard-btn">View Project</button>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="portfolio-dots" id="portfolioDots"></div>
+        <div class="portfolio-nav">
+            <button class="pnav-btn" id="pBtnPrev" onclick="rotateCards(-1)"><i class="fas fa-chevron-left"></i></button>
+            <button class="pnav-btn" id="pBtnNext" onclick="rotateCards(1)"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+        <section id="reviews" class="reviews">
+            <h2 class="reveal" style="font-family: Orbitron; font-size: 35px;">Testimonials</h2>
+            <div class="reviews-grid">
+                <div class="flip-card reveal-delay-1" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="client-meta">
+                                <img src="img/a.jpg" alt="Ahmed Ali">
+                                <div><h4>Ahmed Ali</h4><small>Brand Owner · UAE</small></div>
+                            </div>
+                            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="review-text">"Khadija is an exceptionally creative designer. Her attention to detail and ability to bring a brand's vision to life is unmatched."</p>
+                            <div class="flip-hint"><i class="fas fa-rotate"></i> Details</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="back-service-tag"><i class="fas fa-fingerprint"></i> Visual Identity</div>
+                            <hr class="back-divider">
+                            <div class="back-info-block">
+                                <div class="back-row"><span class="back-row-label">Deliverables</span><ul class="deliverables-list"><li>Logo</li><li>Brand Guide</li><li>Business Card</li><li>Letterhead</li></ul></div>
+                                <div class="back-row"><span class="back-row-label">Duration</span><div class="duration-badge"><i class="fas fa-clock"></i><span class="duration-days">7</span><span class="duration-unit">days</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal-delay-2" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="client-meta">
+                                <img src="img/sa.jpg" alt="Sara Salem">
+                                <div><h4>Sara Salem</h4><small>Startup Founder · KSA</small></div>
+                            </div>
+                            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="review-text">"The UI/UX design she provided for our mobile app was intuitive and sleek. Our users love the new interface!"</p>
+                            <div class="flip-hint"><i class="fas fa-rotate"></i> Details</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="back-service-tag"><i class="fas fa-desktop"></i> UI/UX Design</div>
+                            <hr class="back-divider">
+                            <div class="back-info-block">
+                                <div class="back-row"><span class="back-row-label">Deliverables</span><ul class="deliverables-list"><li>Wireframes</li><li>UI Screens</li><li>Prototype</li><li>Design System</li></ul></div>
+                                <div class="back-row"><span class="back-row-label">Duration</span><div class="duration-badge"><i class="fas fa-clock"></i><span class="duration-days">14</span><span class="duration-unit">days</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card reveal-delay-3" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <div class="client-meta">
+                                <img src="img/11.jpg" alt="Omar Khalid">
+                                <div><h4>Omar Khalid</h4><small>Marketing Lead · Kuwait</small></div>
+                            </div>
+                            <div class="rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <p class="review-text">"Great communication and professional delivery. The social media campaign designs were a huge success."</p>
+                            <div class="flip-hint"><i class="fas fa-rotate"></i> Details</div>
+                        </div>
+                        <div class="flip-back">
+                            <div class="back-service-tag"><i class="fas fa-bullhorn"></i> Social Media Ads</div>
+                            <hr class="back-divider">
+                            <div class="back-info-block">
+                                <div class="back-row"><span class="back-row-label">Deliverables</span><ul class="deliverables-list"><li>10 Posts</li><li>Story Set</li><li>Banner Ads</li></ul></div>
+                                <div class="back-row"><span class="back-row-label">Duration</span><div class="duration-badge"><i class="fas fa-clock"></i><span class="duration-days">5</span><span class="duration-unit">days</span></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="backrF">
+
+<section class="contact-social">
+    <h2>Let's Connect</h2>
+
+    <div class="contact-links">
+
+        <a href="#" class="contact-item">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram</span>
+        </a>
+
+        <a href="#" class="contact-item">
+            <i class="fab fa-behance"></i>
+            <span>Behance</span>
+        </a>
+
+        <a href="#" class="contact-item">
+            <i class="fab fa-linkedin-in"></i>
+            <span>LinkedIn</span>
+        </a>
+
+        <a href="https://github.com/KhadijaArrazaghi" class="contact-item">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+
+    </div>
+</section>
+    <footer class="footer1">
+        <p>&copy; 2026 | Khadija Arrazaghi | Professional Graphic Designer</p>
+    </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
