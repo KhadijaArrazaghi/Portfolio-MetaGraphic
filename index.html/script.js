@@ -240,16 +240,16 @@ const dotsContainer = document.getElementById('portfolioDots');
 for (let i = 0; i < totalCards; i++) {
     const dot = document.createElement('div');
     dot.className = 'dot'; dot.dataset.target = i;
-    dot.addEventListener('click', () => {
-        const numSlots = Math.min(5, totalCards);
-        const centerSlot = Math.floor(numSlots / 2);
-        const currentCenter = deckIndices[centerSlot];
-        let steps = i - currentCenter;
-        // Wrap around for shortest path
-        if (steps > totalCards / 2) steps -= totalCards;
-        if (steps < -totalCards / 2) steps += totalCards;
-        if (steps !== 0) rotateDeck(steps);
-    });
+    // dot.addEventListener('click', () => {
+    //     const numSlots = Math.min(5, totalCards);
+    //     const centerSlot = Math.floor(numSlots / 2);
+    //     const currentCenter = deckIndices[centerSlot];
+    //     let steps = i - currentCenter;
+    //     // Wrap around for shortest path
+    //     if (steps > totalCards / 2) steps -= totalCards;
+    //     if (steps < -totalCards / 2) steps += totalCards;
+    //     if (steps !== 0) rotateDeck(steps);
+    // });
     dotsContainer.appendChild(dot);
 }
 
@@ -262,13 +262,13 @@ function updateDots() {
 
 // Touch/swipe
 let touchStartX = 0, isDragging = false;
-stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; isDragging = true; }, { passive: true });
-stage.addEventListener('touchmove', (e) => { if (isDragging && Math.abs(e.touches[0].clientX - touchStartX) > Math.abs(e.touches[0].clientY - touchStartX)) e.preventDefault(); }, { passive: false });
-stage.addEventListener('touchend', (e) => {
-    if (!isDragging) return; isDragging = false;
-    const dx = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(dx) > 40) rotateDeck(dx < 0 ? 1 : -1);
-}, { passive: true });
+// stage.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; isDragging = true; }, { passive: true });
+// stage.addEventListener('touchmove', (e) => { if (isDragging && Math.abs(e.touches[0].clientX - touchStartX) > Math.abs(e.touches[0].clientY - touchStartX)) e.preventDefault(); }, { passive: false });
+// stage.addEventListener('touchend', (e) => {
+//     if (!isDragging) return; isDragging = false;
+//     const dx = e.changedTouches[0].clientX - touchStartX;
+//     if (Math.abs(dx) > 40) rotateDeck(dx < 0 ? 1 : -1);
+// }, { passive: true });
 let mouseStartX = 0, mouseDown = false;
 stage.addEventListener('mousedown', (e) => { mouseStartX = e.clientX; mouseDown = true; });
 stage.addEventListener('mouseup', (e) => { if (!mouseDown) return; mouseDown = false; const dx = e.clientX - mouseStartX; if (Math.abs(dx) > 50) rotateDeck(dx < 0 ? 1 : -1); });
